@@ -18,6 +18,12 @@ Route::get('/', function () {
 });
 Route::group(['prefix' => 'admin','namespace'=>'Admin' , 'middleware'=>['auth','admin']], function () {
     Route::get('/', 'MainController@index');
+    Route::resource('/company', 'MainController');
+
+    Route::group(['prefix' => 'admin','namespace'=>'Admin' , 'middleware'=>['superadmin']], function () {
+
+
+    });
 });
 
 Auth::routes();

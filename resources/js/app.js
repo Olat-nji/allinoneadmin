@@ -5,7 +5,8 @@
  */
 
 require('./bootstrap');
-require('./admin_js/AdminLTE.js');
+
+
 window.Vue = require('vue');
 
 /**

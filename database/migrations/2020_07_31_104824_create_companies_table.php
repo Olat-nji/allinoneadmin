@@ -18,8 +18,8 @@ class CreateCompaniesTable extends Migration
             $table->text('name');
             $table->text('logo');
             $table->text('email');
-            $table->text('address');
-            $table->text('phone');
+            $table->text('address')->nullable();
+            $table->text('phone')->nullable();
             $table->timestamps();
         });
     }

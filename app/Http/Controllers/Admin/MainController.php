@@ -15,10 +15,12 @@ class MainController extends Controller
     public function index()
     {
 $company = Company::find(1);
+
 if($company){
-    return 'company set';
+
+    return view('admin.generator');
 }else{
-    return 'company not set';
+    return redirect(url('admin/company/create'));
 }
     }
 
@@ -29,7 +31,8 @@ if($company){
      */
     public function create()
     {
-        //
+
+        return view('admin.create-company');
     }
 
     /**
@@ -40,8 +43,25 @@ if($company){
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email',
+            'logo' => 'required|image|max:5120',
+
+
+  ]);
+
+  $logo = $request->file('logo')->store('logo');
+$company = new Company;
+$company->name=$request->input('name');
+$company->logo=$logo;
+$company->email=$request->input('email');
+$company->phone=$request->input('phone');
+$company->address=$request->input('address');
+        $company->save();
+        return redirect(url('admin/super-admin/create-super-admin'));
     }
+
 
     /**
      * Display the specified resource.
