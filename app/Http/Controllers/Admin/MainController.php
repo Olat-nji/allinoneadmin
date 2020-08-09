@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Company;
+use App\Table;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 class MainController extends Controller
 {
     /**
@@ -15,10 +18,21 @@ class MainController extends Controller
     public function index()
     {
 $company = Company::find(1);
+$table = Table::find(1);
 
 if($company){
+    if(!$table){
+$page=[
+    'title'=> 'Table Generator'
+];
 
-    return view('admin.generator');
+return view('admin.generator', compact('page'));}else{
+    $page=[
+        'title'=> 'Dashboard'
+    ];
+
+    return view('admin.dashboard')->with('page',$page);
+}
 }else{
     return redirect(url('admin/company/create'));
 }
@@ -51,7 +65,12 @@ if($company){
 
   ]);
 
-  $logo = $request->file('logo')->store('logo');
+
+
+  $logo = $request->file('logo')->store(
+    'logo', 'public'
+);
+Company::truncate();
 $company = new Company;
 $company->name=$request->input('name');
 $company->logo=$logo;
@@ -59,7 +78,8 @@ $company->email=$request->input('email');
 $company->phone=$request->input('phone');
 $company->address=$request->input('address');
         $company->save();
-        return redirect(url('admin/super-admin/create-super-admin'));
+
+        return redirect(url('admin'));
     }
 
 

@@ -1,18 +1,15 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @include('admin.includes.head')
-<body>
+
+
+<body  class="sidebar-mini layout-navbar-fixed sidebar-collapse" style="height: auto;">
+    <div class="wrapper">
     @include('admin.includes.navbar')
-    <div class="content-wrapper px-4 py-2">
-        <div class="content-header">
-            <h1 class="text-dark">{{$page->title}}</h1>
-        </div>
 
-        <div class="content px-2">
             @yield('content')
-        </div>
-    </div>
 
+  </div>
 
-</body>
+  @include('admin.includes.foot')</body>
 </html>
