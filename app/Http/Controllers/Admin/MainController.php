@@ -22,11 +22,9 @@ $table = Table::find(1);
 
 if($company){
     if(!$table){
-$page=[
-    'title'=> 'Table Generator'
-];
 
-return view('admin.generator', compact('page'));}else{
+
+return redirect(url('admin/tables/create'));}else{
     $page=[
         'title'=> 'Dashboard'
     ];

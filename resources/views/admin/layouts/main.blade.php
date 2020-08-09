@@ -11,5 +11,6 @@
 
   </div>
 
-  @include('admin.includes.foot')</body>
+  @include('admin.includes.foot')
+@yield('scripts')</body>
 </html>

@@ -20,8 +20,9 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin' , 'middleware'=>['auth','
     Route::get('/', 'MainController@index');
     Route::resource('/company', 'MainController');
 
-    Route::group(['prefix' => 'admin','namespace'=>'Admin' , 'middleware'=>['superadmin']], function () {
-
+    Route::group(['middleware'=>['superadmin']], function () {
+        Route::resource('/tables', 'TablesController');
+        Route::post('/tables/create/{page}', 'TablesController@create2');
 
     });
 });

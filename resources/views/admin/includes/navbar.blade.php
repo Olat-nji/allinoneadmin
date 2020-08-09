@@ -8,9 +8,7 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ url('admin') }}" class="nav-link">Home</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">{{ $page['title'] }}</a>
-      </li>
+
     </ul>
 
     <!-- SEARCH FORM -->
@@ -25,7 +23,7 @@
       </div>
     </form>
 
-    <!-- Right navbar links -->
+    {{-- <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
@@ -117,7 +115,7 @@
           <i class="fas fa-th-large"></i>
         </a>
       </li>
-    </ul>
+    </ul> --}}
   </nav>
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -151,12 +149,13 @@
                   </p>
                 </a>
               </li>
+              <li class="nav-header">Pages</li>
               @foreach($tables as $table)
               <li class="nav-item has-treeview ">
                 <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-square"></i>
+                  <i class="nav-icon fas fa-circle"></i>
                   <p>
-                    {{ ucwords($table->name) }}
+                    {{ ucwords(Illuminate\Support\Str::plural($table->name)) }}
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
@@ -184,16 +183,46 @@
                 </ul>
               </li>
               @endforeach
+              <li class="nav-header">Settings</li>
+              <li class="nav-item">
+                <a href="{{ url('admin/users') }}" class="nav-link">
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>
+    Users
 
-          <li class="nav-item">
-            <a href="../widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-cog"></i>
-              <p>
-                Settings
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
+                  </p>
+                </a>
+              </li>
+              @if(Auth::user()->role =='superadmin')
+              <li class="nav-item has-treeview">
+                <a href="#" class="nav-link @if($page['title']=='Tables')
+active
+                @endif">
+                  <i class="nav-icon fas fa-table"></i>
+                  <p>
+                    Tables
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ url('admin/tables/create')  }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Create New </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ url('admin/tables')  }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>View All</p>
+                    </a>
+                  </li>
+
+                </ul>
+              </li>
+              @endif
+
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
